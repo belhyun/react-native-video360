@@ -90,6 +90,35 @@ public class Video360Module extends SimpleViewManager {
         view.setInfoButtonEnabled(enabled);
     }
 
+    @ReactProp(name = "pause")
+    public void setPause(VrVideoView view, Boolean pause) {
+        if (view != null) {
+            if (pause) {
+                view.pause();
+            } else {
+                view.play();
+            }
+        }
+    }
+
+    @ReactProp(name = "play")
+    public void setPlay(VrVideoView view, Boolean play) {
+        if (view != null) {
+            if (play) {
+                view.play();
+            } else {
+                view.pause();
+            }
+        }
+    }
+
+    @ReactProp(name = "seek")
+    public void setSeek(VrVideoView view, float seek) {
+        if(view != null) {
+            view.seekTo(seek);
+        }
+    }
+
     @ReactProp(name = "urlVideo")
     public void setVideo(VrVideoView view, String url) {
        // String type = config.getString("type");
