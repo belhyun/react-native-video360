@@ -94,9 +94,9 @@ public class Video360Module extends SimpleViewManager {
     public void setPause(VrVideoView view, Boolean pause) {
         if (view != null) {
             if (pause) {
-                view.pause();
+                view.pauseVideo();
             } else {
-                view.play();
+                view.playVideo();
             }
         }
     }
@@ -105,9 +105,9 @@ public class Video360Module extends SimpleViewManager {
     public void setPlay(VrVideoView view, Boolean play) {
         if (view != null) {
             if (play) {
-                view.play();
+                view.playVideo();
             } else {
-                view.pause();
+                view.pauseVideo();
             }
         }
     }
@@ -115,7 +115,7 @@ public class Video360Module extends SimpleViewManager {
     @ReactProp(name = "seek")
     public void setSeek(VrVideoView view, float seek) {
         if(view != null) {
-            view.seekTo(seek);
+            view.seekTo((long) seek);
         }
     }
 
