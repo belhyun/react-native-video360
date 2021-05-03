@@ -17,12 +17,22 @@ import com.google.vr.sdk.widgets.video.VrVideoView;
 
 import java.io.IOException;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.LifecycleEventListener;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
+
 
 public class Video360Module extends SimpleViewManager {
     private static final String CLASS_NAME = "Video360";
     private static final String TAG = Video360Module.class.getSimpleName();
     private VrVideoView view;
     private View view2;
+    private RCTEventEmitter mEventEmitter;
 
     public Video360Module(ReactApplicationContext context) { super(); }
 
@@ -35,6 +45,7 @@ public class Video360Module extends SimpleViewManager {
     protected View createViewInstance(ThemedReactContext context) {
         view = new VrVideoView(context.getCurrentActivity());
         view.setEventListener(new ActivityEventListener());
+        mEventEmitter = context.getJSModule(RCTEventEmitter.class);
        // Log.d(TAG, "createViewInstance: test");
 
       //  view2 = View.inflate(context.getCurrentActivity(), R.layout.activity_video_player_360,null);
@@ -149,6 +160,8 @@ public class Video360Module extends SimpleViewManager {
     private class ActivityEventListener extends VrVideoEventListener {
         @Override
         public void onLoadSuccess() {
+            WritableMap event = Arguments.createMap();
+            mEventEmitter.receiveEvent(view.getId(), "onVideoLoad", event);
 
             Log.i(TAG, "Successfully loaded video " + view.getDuration());
         }
