@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    
+
     self.player = [SGPlayer player];
     [self.player registerPlayerNotificationTarget:self
                                       stateAction:@selector(stateAction:)
@@ -33,18 +33,18 @@
     }];
     [self.view insertSubview:self.player.view atIndex:0];
 //    NSLog(@"-----urlVideo: %@", self.urlVideo);
-    
+
     [self playVideFromUrl:[NSURL URLWithString:self.urlVideo]];
     return;
-    
+
     // Gets an dictionary with each available youtube url
     //NSURL * vrVideo = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.urlVideo ofType:@"mp4"]];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+
 //    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
 //        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
 //        dgt.shouldSupportPortrait = FALSE;
@@ -53,16 +53,16 @@
 //        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 //        [UINavigationController attemptRotationToDeviceOrientation];
 //    }
-    
+
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
+
 //    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
 //        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
 //        dgt.shouldSupportPortrait = TRUE;
@@ -72,7 +72,7 @@
 //        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 //        [UINavigationController attemptRotationToDeviceOrientation];
 //    }
-    
+
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 /*- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
@@ -86,7 +86,7 @@
 }
 
 - (void)playVideFromUrl:(NSURL*)vrVideo{
-    
+
     switch (self.demoType)
     {
         case DemoType_AVPlayer_Normal:
@@ -166,7 +166,7 @@
 - (void)stateAction:(NSNotification *)notification
 {
     SGState * state = [SGState stateFromUserInfo:notification.userInfo];
-    
+
     NSString * text;
     switch (state.current) {
         case SGPlayerStateNone:
@@ -254,7 +254,9 @@
 
 -(void)setSeek:(float)seek
 {
-    [self.player seekToTime:seek];
+     if (seek > 0) {
+            [self.player seekToTime:seek];
+        }
 }
 
 -(void)setVolume:(float)volume
