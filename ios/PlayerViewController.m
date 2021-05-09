@@ -6,12 +6,12 @@
 
 @property (nonatomic, strong) SGPlayer * player;
 
-@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
-@property (weak, nonatomic) IBOutlet UISlider *progressSilder;
-@property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+//@property (weak, nonatomic) IBOutlet UISlider *progressSilder;
+//@property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
-@property (nonatomic, assign) BOOL progressSilderTouching;
+//@property (nonatomic, assign) BOOL progressSilderTouching;
 
 @end
 
@@ -66,8 +66,8 @@
 //    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
 //        AppDelegate* dgt = (AppDelegate*)[UIApplication sharedApplication].delegate;
 //        dgt.shouldSupportPortrait = TRUE;
-//        
-//        
+//
+//
 //        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
 //        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 //        [UINavigationController attemptRotationToDeviceOrientation];
@@ -142,25 +142,25 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)play:(id)sender
-{
-    [self.player play];
-}
+//- (IBAction)play:(id)sender
+//{
+//    [self.player play];
+//}
 
-- (IBAction)pause:(id)sender
-{
-    [self.player pause];
-}
+//- (IBAction)pause:(id)sender
+//{
+//    [self.player pause];
+//}
 
 - (IBAction)progressTouchDown:(id)sender
 {
-    self.progressSilderTouching = YES;
+    //self.progressSilderTouching = YES;
 }
 
 - (IBAction)progressTouchUp:(id)sender
 {
-    self.progressSilderTouching = NO;
-    [self.player seekToTime:self.player.duration * self.progressSilder.value];
+    //self.progressSilderTouching = NO;
+    //[self.player seekToTime:self.player.duration * self.progressSilder.value];
 }
 
 - (void)stateAction:(NSNotification *)notification
@@ -177,7 +177,8 @@
             break;
         case SGPlayerStateReadyToPlay:
             text = @"Preparado";
-            self.totalTimeLabel.text = [self timeStringFromSeconds:self.player.duration];
+            //self.totalTimeLabel.text = [self timeStringFromSeconds:self.player.duration];
+            self.onVideoLoad(@{});
             [self.player play];
             break;
         case SGPlayerStatePlaying:
@@ -188,21 +189,25 @@
             break;
         case SGPlayerStateFinished:
             text = @"Terminado";
+            if (self.repeat) {
+                [self setSeek:0];
+                [self setPause:false];
+            }
             break;
         case SGPlayerStateFailed:
             text = @"Error";
             break;
     }
-    self.stateLabel.text = text;
+    //self.stateLabel.text = text;
 }
 
 - (void)progressAction:(NSNotification *)notification
 {
     SGProgress * progress = [SGProgress progressFromUserInfo:notification.userInfo];
-    if (!self.progressSilderTouching) {
-        self.progressSilder.value = progress.percent;
-    }
-    self.currentTimeLabel.text = [self timeStringFromSeconds:progress.current];
+    //if (!self.progressSilderTouching) {
+        //self.progressSilder.value = progress.percent;
+    //}
+    //self.currentTimeLabel.text = [self timeStringFromSeconds:progress.current];
 }
 
 - (void)playableAction:(NSNotification *)notification
@@ -226,5 +231,36 @@
 {
     [self.player removePlayerNotificationTarget:self];
 }
+
+-(void)setPlay:(BOOL)play
+{
+  if (play) {
+      [self.player play];
+  } else {
+      [self.player pause];
+  }
+  //_isPaused = !play;
+}
+
+-(void)setPause:(BOOL)pause
+{
+  if (pause) {
+      [self.player pause];
+  } else {
+      [self.player play];
+  }
+  //_isPaused = pause;
+}
+
+-(void)setSeek:(float)seek
+{
+    [self.player seekToTime:seek];
+}
+
+-(void)setVolume:(float)volume
+{
+    [self.player setVolume:volume];
+}
+
 
 @end

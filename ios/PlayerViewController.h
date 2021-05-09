@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import <React/RCTView.h>
 
 typedef NS_ENUM(NSUInteger, DemoType) {
     DemoType_AVPlayer_Normal = 0,
@@ -17,5 +18,11 @@ typedef NS_ENUM(NSUInteger, DemoType) {
 
 @property (nonatomic) DemoType demoType;
 @property (nonatomic) NSString* urlVideo;
+@property (nonatomic, assign) BOOL play;
+@property (nonatomic, assign) BOOL pause;
+@property (nonatomic, assign) BOOL repeat;
+@property (nonatomic, assign) float seek;
+@property (nonatomic, assign) float volume;
+@property (nonatomic, copy) RCTDirectEventBlock onVideoLoad;
 
 @end

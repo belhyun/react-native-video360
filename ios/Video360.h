@@ -2,6 +2,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import <React/RCTView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,6 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) int modeVideo;
 @property (nonatomic) NSString* urlVideo;
+@property (nonatomic, assign) float volume;
+@property (nonatomic, assign) BOOL play;
+@property (nonatomic, assign) BOOL pause;
+@property (nonatomic, assign) BOOL repeat;
+@property (nonatomic, assign) float seek;
+@property (nonatomic, copy) RCTDirectEventBlock onVideoLoad;
 
 @end
 
