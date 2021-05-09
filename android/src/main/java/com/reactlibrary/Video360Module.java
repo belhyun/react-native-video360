@@ -139,7 +139,8 @@ public class Video360Module extends SimpleViewManager {
 
 
         VrVideoView.Options videoOptions = new VrVideoView.Options();
-        videoOptions.inputFormat = VrVideoView.Options.FORMAT_DEFAULT;
+        videoOptions.inputFormat = VrVideoView.Options.FORMAT_HLS;
+
 //
 //        switch(type) {
 //            case "mono":
